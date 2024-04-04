@@ -1,8 +1,8 @@
 import tkinter as tk 
-from tkinter import *
-from tkinfer import messagebox
-from PIL import Image, ImageTk
 import requests
+from tkinter import messagebox
+from PIL import Image, ImageTk
+
 import ttkbootstrap
 
 # Function to get the weather information 
@@ -14,7 +14,18 @@ def get_weather(city):
     if res.status_code == 404:
         messagebox.showerror("This city only exists in your imagination")
         return None
-    # Parse the response JS
+    # Parse the response JSon to get the weather information 
+    weather = res.json()
+    icon_id = weather['weather'][0]['icon']
+    temperature = weather['main']['temp'] - 273.15
+    description = weather['weather'][0]['description']
+    city = weather['name']
+    country = weather['sys']['country']
+
+    # get the weather icon URL and all the weather information
+    icon_url = 'https://openweathermap.org/img/wn/{icon_id}10d@2x.png'
+    return (icon_url, temperature, description, city, country)
+
 
 
 # Define a function  to search for weather in a city
@@ -23,12 +34,26 @@ def search():
     result =  get_weather(city) #calls the get weather function to retrieve the data 
     if result is None:
         return
+    # if the city is found, unpack the weather information 
+    icon_url, temperature, description, city, country = result
+    location_label.configure(text=f'{city}, {country}')
+
+    # Get the weather icon image from the url
+    image = Image.open(requests.get(icon_url, stream=True).raw)
+    icon = ImageTk.PhotoImage(image)
+    icon_label.configure(image=icon)
+    icon_label.image = icon
+
+    # updat the temp and description labels 
+    temperature_label.configure(text=f'Tempersture: {temperature:.2}°C')
+    description_label.configure(text=f'Description: {description}')
 
 
 
-root = ttkbootstrap.Window(themename="minty")
+root = ttkbootstrap.Window(themename='morph')
 root.title('Weather App')
 root.geometry('400x400')
+
 
 # Entry widget to entry city name
 city_entry = ttkbootstrap.Entry(root, font="Helvetica, 18")
