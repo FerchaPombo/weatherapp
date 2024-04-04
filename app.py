@@ -1,5 +1,48 @@
+import tkinter as tk 
+from tkinter import *
+from tkinfer import messagebox
+from PIL import Image, ImageTk
 import requests
+import ttkbootstrap
 
+# Define a function  to search for weather in a city
+def search():
+    city = city.entry.get() # gets users imput
+    result =  get_weather(city)
+    
+
+root = ttkbootstrap.Window(themename="minty")
+root.title('Weather App')
+root.geometry('400x400')
+
+# Entry widget to entry city name
+city_entry = ttkbootstrap.Entry(root, font="Helvetica, 18")
+city_entry.pack(pady=10)
+
+# Button widget -> to search for weather info
+search_button = ttkbootstrap.Button(root, text='Search', command=search, bootstyle=Warning)
+search_button.pack(pady=10)
+
+# label widget -> to show the city/country name
+location_label = tk.Label(root, font='Helvetica,25')
+location_label.pack(pady=20)
+
+# Label widget -> to show the weather icon 
+icon_label = tk.label(root)
+icon_label.pack()
+
+# Label widget -> to show the temperature 
+temperature_label = tk.Label(root, font='Helvetica, 20')
+temperature_label.pack()
+
+# Label widget -> to show weather description 
+description_label = tk.Label(root, font='Helvetica, 20')
+description_label.pack()
+
+root.mainloop()
+
+
+'''
 with open('api_key.txt', 'r') as file:
     api_key = file.read().strip()
 
@@ -40,3 +83,4 @@ print(f'There is a humidity of {humidity}%, with wind speed of {wind_speed} m/s'
 if rain_volume:
     print(f'There is {rain_volume} mm of rain')
 print(f'The sun will rise at {sunrise_timestamp} and set at {sunset_timestamp}')
+'''
