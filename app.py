@@ -5,11 +5,26 @@ from PIL import Image, ImageTk
 import requests
 import ttkbootstrap
 
+# Function to get the weather information 
+def get_weather(city):
+    API_key = '0ee939522a1dcd8789c86cdb16ac0966'
+    url=f"http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_key}"
+    res = requests.get(url)
+
+    if res.status_code == 404:
+        messagebox.showerror("This city only exists in your imagination")
+        return None
+    # Parse the response JS
+
+
 # Define a function  to search for weather in a city
 def search():
     city = city.entry.get() # gets users imput
-    result =  get_weather(city)
-    
+    result =  get_weather(city) #calls the get weather function to retrieve the data 
+    if result is None:
+        return
+
+
 
 root = ttkbootstrap.Window(themename="minty")
 root.title('Weather App')
