@@ -3,9 +3,13 @@ import requests
 with open('api_key.txt', 'r') as file:
     api_key = file.read().strip()
 
-location = input('Location:')
-result = requests.get(f'http://api.openweathermap.org/data/2.5/weather?q={location}&units=metric&appid={api_key}')
-
+while True:
+    location = input('City:')
+    result = requests.get(f'http://api.openweathermap.org/data/2.5/weather?q={location}&units=metric&appid={api_key}')
+    if result.json()['cod'] == '404':
+        print("This place only exists in your imagination")
+        continue
+    break
 
 # Extracting weather data from the response
 weather_data = result.json()
@@ -29,7 +33,7 @@ sunrise_timestamp = weather_data['sys']['sunrise']
 sunset_timestamp = weather_data['sys']['sunset']
 
 # Print weather information
-print(f'The weather in {location} is {temperature}°C with {description}')
+print(f'The weather in {location[0].upper()}{location[1:]} is {temperature}°C with {description}')
 print(f'It feels like {feels_like}°C')
 print(f'Today, there is a max and min of {temp_max}°C - {temp_min}°C')
 print(f'There is a humidity of {humidity}%, with wind speed of {wind_speed} m/s')
