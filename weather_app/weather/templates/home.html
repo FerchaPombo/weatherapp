@@ -15,6 +15,10 @@
         <h2>{{ weather.city }}, {{ weather.country }}</h2>
         <p>Temperature: {{ weather.temperature }}°C</p>
         <p>Description: {{ weather.description }}</p>
+        <p>Feels Like: {{ weather.feels_like }}°C</p>
+        <p>Max Temperature: {{ weather.temp_max }}°C</p>
+        <p>Min Temperature: {{ weather.temp_min }}°C</p>
+        <p>Humidity: {{ weather.humidity }}%</p>
         <!-- Add more weather data -->
     {% endfor %}
 </body>
