@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+</head>
+<body>
+    <h1>Weather App</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="Enter city">
+        <button type="submit">Search</button>
+    </form>
+    {% for weather in weathers %}
+        <h2>{{ weather.city }}, {{ weather.country }}</h2>
+        <p>Temperature: {{ weather.temperature }}°C</p>
+        <p>Description: {{ weather.description }}</p>
+        <!-- Add more weather data -->
+    {% endfor %}
+</body>
+</html>
