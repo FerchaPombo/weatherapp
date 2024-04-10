@@ -132,4 +132,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ['https://8000-ferchapombo-weatherapp-ewowaaiq948.ws-eu110.gitpod.io']
 
-ALLOWED_HOSTS = ['https://weatherforu-aa3c83060993.herokuapp.com/']
+ALLOWED_HOSTS = ['weatherforu-aa3c83060993.herokuapp.com']
