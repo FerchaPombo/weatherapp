@@ -9,12 +9,19 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+def load_api_key():
+    try:
+        with open(BASE_DIR / 'weather_app' / 'api_key.txt', 'r') as file:
+            return file.read().strip()
+    except FileNotFoundError:
+        return None
+    except Exception as e:
+        print(f"Error loading API key: {e}")
+        return None
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -23,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-iz^#f3w%6o*ii^ma3nnmw%zcdbdi&0**^^8f8$3u9go91i7sny'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['8000-ferchapombo-weatherapp-ewowaaiq948.ws-eu110.gitpod.io', '127.0.0.1', 'localhost']
 
@@ -124,3 +131,4 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ['https://8000-ferchapombo-weatherapp-ewowaaiq948.ws-eu110.gitpod.io']
+
