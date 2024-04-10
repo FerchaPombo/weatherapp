@@ -3,69 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Weather App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(139, 45, 115, 0.17);
+        }
+        .full-width-card {
+            position: relative;
+            min-height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(139, 45, 115, 0.304); /* Optional: Add some background color */
+            
+        }
         .card {
-            max-width: 18rem;
-            margin: auto; /* Center the card */
-            margin-top: 20px; /* Add some top margin */
+            max-width: 400px; /* Set your desired max-width for the card */
+            width: 100%; /* Make the card take up full width */
         }
         .weather-icon {
-            max-width: 100px; /* Set the maximum width of the weather icon */
+            max-width: 100px;
             display: block;
-            margin: auto; /* Center the weather icon */
+            margin: auto;
         }
         .card-header {
-        background-color: rgba(246, 165, 11, 0.4); /* Use rgba() for background color with opacity */
+            background-color: rgba(246, 165, 11, 0.4);
         }
-
         .card-body {
-        background-color: rgba(139, 45, 115, 0.304); /* Use rgba() for background color with opacity */
+            background-color: rgba(139, 45, 115, 0.304);
         }
         .my-form-group {
-        background-color: rgba(246, 176, 11, 0.215); /* Use rgba() for background color with opacity */
+            background-color: rgba(246, 176, 11, 0.215);
         }
-        .card {
-        max-width: 22rem; /* Increase the max-width */
-        margin: auto; /* Center the card */
-        margin-top: 20px; /* Add some top margin */
-        }
-
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h1 class="text-center mb-0">(づ ◕‿◕ )づ</h1>
-                        <p style="text-align: center;">Weather ShitShow</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <form method="post">
-                                {% csrf_token %}
-                                <div class="form-group ">
-                                    <input type="text" name="city" class="form-control my-form-group" placeholder="Enter city">
-                                </div>
-                                <button type="submit" class="btn btn-outline-dark mx-auto">Find out!</button>
-                            </form>
+    <div class="full-width-card mt-0">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center mb-0">(づ ◕‿◕ )づ</h1>
+                <p style="text-align: center;">Weather ShitShow</p>
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group ">
+                            <input type="text" name="city" class="form-control my-form-group" placeholder="Enter city">
                         </div>
-                        {% for weather in weathers %}
-                        <div class="text-center">
-                            <img src="{{ weather.icon_url }}" class="weather-icon" alt="Weather Icon">
-                        </div>
-                        <h5 class="card-title text-center">{{ weather.city }}, {{ weather.country }}</h5>
-                        <p class="card-text text-center">Temperature: {{ weather.temperature }}°C</p>
-                        <p class="card-text text-center">Description: {{ weather.description }}</p>
-                        <p class="card-text text-center">Feels Like: {{ weather.feels_like }}°C</p>
-                        <p class="card-text text-center">Max Temperature: {{ weather.temp_max }}°C</p>
-                        <p class="card-text text-center">Min Temperature: {{ weather.temp_min }}°C</p>
-                        <p class="card-text text-center">Humidity: {{ weather.humidity }}%</p>
-                        {% endfor %}
-                    </div>
+                        <button type="submit" class="btn btn-outline-dark mx-auto mt-1">Find out!</button>
+                    </form>
                 </div>
+                {% for weather in weathers %}
+                <div class="text-center">
+                    <img src="{{ weather.icon_url }}" class="weather-icon" alt="Weather Icon">
+                </div>
+                <h5 class="card-title text-center">{{ weather.city }}, {{ weather.country }}</h5>
+                <p class="card-text text-center">Temperature: {{ weather.temperature }}°C</p>
+                <p class="card-text text-center">Description: {{ weather.description }}</p>
+                <p class="card-text text-center">Feels Like: {{ weather.feels_like }}°C</p>
+                <p class="card-text text-center">Max Temperature: {{ weather.temp_max }}°C</p>
+                <p class="card-text text-center">Min Temperature: {{ weather.temp_min }}°C</p>
+                <p class="card-text text-center">Humidity: {{ weather.humidity }}%</p>
+                {% endfor %}
             </div>
         </div>
     </div>
